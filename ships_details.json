@@ -1,0 +1,31 @@
+[
+    {
+		"name" : "ship1",
+		"project-type" : "proj-type", 
+        "prototype" : "prototype1", 
+		"classification-society" : "RS",
+		"class-notations" : ["notations1", "notations2"],
+		"ice class" : "A1",
+		"speed" : "22", 
+		"dwt" : "dwt", 
+		"length" : "length",
+		"width" : "width",
+		"draft" : "draft",
+		"cargo-types" : ["cargo1", "cargo2"]
+	},
+	
+    {
+		"name" : "ship2",
+		"project-type" : "proj-type", 
+        "prototype" : "prototype2", 
+		"classification-society" : "LR",
+		"class-notations" : ["notations1", "notations2"],
+		"ice class" : "A1",
+		"speed" : "22", 
+		"dwt" : "dwt", 
+		"length" : "length",
+		"width" : "width",
+		"draft" : "draft",
+		"cargo-types" : ["cargo1", "cargo2"]
+	},
+]
