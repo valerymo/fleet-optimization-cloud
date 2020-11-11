@@ -1,43 +1,137 @@
 package com.shipdesign.restservice;
 
+import java.util.List;
+
 public class ShipMainTechnicalEconomicCharacteristics {
 	
-	public float a1;			// ÐºÐ¾Ñ�Ñ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚ Ð¼Ð¾Ñ€Ñ�ÐºÐ¾Ð³Ð¾ Ð·Ð°Ð¿Ð°Ñ�Ð°
-	public float delta; // ÐºÐ¾Ñ�Ñ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚ Ð¾Ð±Ñ‰ÐµÐ¹ Ð¿Ð¾Ð»Ð½Ð¾Ñ‚Ñ‹
-	public float ro; // Ð¿Ð»Ð¾Ñ‚Ð½Ð¾Ñ�Ñ‚ÑŒ Ð²Ð¾Ð´Ñ‹
-	public float mk; // ÐºÐ¾Ñ�Ñ„Ñ„Ð¸Ñ†Ð¸ÐµÐ½Ñ‚ Ð²Ñ‹Ñ�Ñ‚ÑƒÐ¿Ð°ÑŽÑ‰Ð¸Ñ… Ñ‡Ð°Ñ�Ñ‚ÐµÐ¹
+//	public float a1;
+//	public float delta; +
+//	public float ro;
+//	public float mk;
+//
+//	private String name; +
+//	public  String projectNumber; 
+//	public  String registerClass; +
+//	private float L; +
+//	public float Lpp;
+//	private float B; +
+//	public float H;
+//	private float T; +
+//	private float D; +
+//	public int DW;
+//	private int load; +
+//	private float speed; +
+//	public float speed_bal;
+//	public int dist;
+//	public int Wk;
+//	public float mu;
+//	public int luk_num;
+//	public String load_stub1;
+//	public int stab1;
+//	public String load_stub2;
+//	public int stab2;
+//	public int priceBuild;
+//	public float priceK1;
+//	public float priceK2;
+//	public int exp1;
 
-	public String name;	//(0,1,"Ð˜Ð¼Ñ� ");
-	public  String projectNumber;	//(0,2,"N# Ð¿Ñ€Ð¾ÐµÐºÑ‚Ð° ");
-	public  String registerClass;		//(0,3,"ÐšÐ»Ð°Ñ�Ñ� Ð ÐµÐ³Ð¸Ñ�Ñ‚Ñ€Ð°");
-	public float L;	//(0,4,"L, Ð¼. Ð”Ð»Ð¸Ð½Ð° Ð½Ð°Ð¸Ð±Ð¾Ð»ÑŒÑˆÐ°Ñ�");
-	public float Lpp;	//(0,5,"L Ð¿, Ð¼. Ð”Ð»Ð¸Ð½Ð° Ð¼ÐµÐ¶Ð´Ñƒ Ð¿ÐµÑ€Ð¿ÐµÐ½Ð´Ð¸ÐºÑƒÐ»Ñ�Ñ€Ð°Ð¼Ð¸");
-	public float B;		//(0,6,"B, Ð¼. Ð¨Ð¸Ñ€Ð¸Ð½Ð°");
-	public float H;		//(0,7,"H, Ð¼. Ð’Ñ‹Ñ�Ð¾Ñ‚Ð° Ð±Ð¾Ñ€Ñ‚Ð°");
-	public float T;		//(0,8,"T, Ð¼. ÐžÑ�Ð°Ð´ÐºÐ° Ð¿Ð¾ Ð³Ñ€ÑƒÐ·Ð¾Ð²ÑƒÑŽ Ð¼Ð°ÐºÑƒ (T1/T2)");
-	public float D;	//(0,9,"DÐ³Ñ€, Ñ‚. Ð’Ð¾Ð´Ð¾Ð¸Ð·Ð¼ÐµÑ‰ÐµÐ½Ð¸Ðµ Ð² Ð³Ñ€ÑƒÐ·Ñƒ (T1/T2)");
-	public int DW;		//(0,10,"DW, Ñ‚.  Ð”ÐµÐ´Ð²ÐµÐ¹Ñ‚ (T1/T2)");
-	public int Pgr;	//(0,11,"PÐ³Ñ€, Ñ‚. Ð“Ñ€ÑƒÐ·Ð¾Ð¿Ð¾Ð´ÑŠÐµÐ¼Ð½Ð¾Ñ�Ñ‚ÑŒ (T1/T2)");
-	public float speed;	//(0,12,"VÐ³Ñ€, ÑƒÐ·. Ð¡ÐºÐ¾Ñ€Ð¾Ñ�Ñ‚ÑŒ Ñ…Ð¾Ð´Ð° Ð² Ð³Ñ€ÑƒÐ·Ñƒ");
-	public float speed_bal;	//(0,13,"VÐ±Ð°Ð», ÑƒÐ·. Ð¡ÐºÐ¾Ñ€Ð¾Ñ�Ñ‚ÑŒ Ñ…Ð¾Ð´Ð° Ð² Ð±Ð°Ð»Ð»Ð°Ñ�Ñ‚Ðµ");
-	public int dist;	//(0,14,"Dist, Ð¼Ð¸Ð»Ð¸. Ð”Ð°Ð»ÑŒÐ½Ð¾Ñ�Ñ‚ÑŒ Ð¿Ð»Ð°Ð²Ð°Ð½Ð¸Ñ� ");
-	public int Wk;	//(0,15,"WÐºÐ¸Ð¿, Ð¼3. Ñ‚ÐµÐ¾Ñ€ÐµÑ‚Ð¸Ñ‡ÐµÑ�ÐºÐ°Ñ� Ð“Ñ€ÑƒÐ·Ð¾Ð²Ð¼ÐµÑ�Ñ‚Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ ÐºÐ¾Ñ€Ð¿ÑƒÑ�Ð°");
-	public float mu; //ÑƒÐ´ÐµÐ»ÑŒÐ½Ð°Ñ� Ð³Ñ€ÑƒÐ·Ð¾Ð²Ð¼ÐµÑ�Ñ‚Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ
-	public int luk_num;	//(0,17,"Ð“Ñ€ÑƒÐ·Ð¾Ð²Ñ‹Ðµ Ð»ÑŽÐºÐ¸, ÐºÐ¾Ð».");
-	public String load_stub1;	//(0,18,"Ð¡Ñ‚Ñ€ÐµÐ»Ñ‹, ÐºÐ¾Ð».*Ð³Ñ€ÑƒÐ·Ð¾Ð¿Ð¾Ð´ÑŠÐµÐ¼Ð½Ð¾Ñ�Ñ‚ÑŒ");
-	public int stab1;		//(0,19,"Ð¡Ñ‚Ñ€ÐµÐ»Ñ‹, Ð²Ñ‹Ð»ÐµÑ‚ Ð·Ð° Ð±Ð¾Ñ€Ñ‚, Ð¼.");
-	public String load_stub2;		//(0,20,"ÐšÑ€Ð°Ð½Ñ‹, ÐºÐ¾Ð».*Ð³Ñ€ÑƒÐ·Ð¾Ð¿Ð¾Ð´ÑŠÐµÐ¼Ð½Ð¾Ñ�Ñ‚ÑŒ");
-	public int stab2;		//(0,21,"ÐšÑ€Ð°Ð½Ñ‹, Ð²Ñ‹Ð»ÐµÑ‚ Ð·Ð° Ð±Ð¾Ñ€Ñ‚, Ð¼.");
-	public int priceBuild;	//(0,23,"Ð¡Ñ‚Ñ€Ð¾Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð°Ñ� Ñ�Ñ‚Ð¾Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ Ñ�ÑƒÐ´Ð½Ð°");
-	public float priceK1;	//(0,24,"Ð¡Ñ‚Ð¾Ð¸Ð¼Ð¾Ñ�Ñ‚Ð¸ ÐºÐ¾Ñ€Ð¿ÑƒÑ�Ð°/Ñ�Ñ‚Ð¾Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ Ñ�ÑƒÐ´Ð½Ð°");
-	public float priceK2;	//(0,25,"Ð¡Ñ‚Ð¾Ð¸Ð¼Ð¾Ñ�Ñ‚Ð¸ Ð­Ð£/Ñ�Ñ‚Ð¾Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ Ñ�ÑƒÐ´Ð½Ð°");
-	public int exp1;		//(0,27,"Ð­ÐºÑ�Ð¿Ð».Ñ€Ð°Ñ�Ñ…Ð¾Ð´Ñ‹ Ñ�ÑƒÑ‚Ð¾Ñ‡Ð½Ñ‹Ðµ, Ð½Ð° Ñ…Ð¾Ð´Ñƒ");
-	public int exp2;		//(0,28,"Ð­ÐºÑ�Ð¿Ð».Ñ€Ð°Ñ�Ñ….Ñ�ÑƒÑ‚., Ð½Ð° Ñ�Ñ‚Ð¾Ñ�Ð½ÐºÐµ Ñ� Ð³Ñ€.Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ñ�Ð¼Ð¸");
-	public int exp3;		//(0,29,"Ð­ÐºÑ�Ð¿Ð».Ñ€Ð°Ñ�Ñ….Ñ�ÑƒÑ‚., Ð½Ð° Ñ�Ñ‚Ð¾Ñ�Ð½ÐºÐµ Ð±ÐµÐ· Ð³Ñ€.Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹");
-	public int exp4;		//(0,30,"Ð­ÐºÑ�Ð¿Ð».Ñ€Ð°Ñ�Ñ….Ñ�ÑƒÑ‚., Ð½Ð° Ð¾Ñ‚Ñ�Ñ‚Ð¾Ðµ");
-	public int exp5;		//(0,31,"Ð­ÐºÑ�Ð¿Ð».Ñ€Ð°Ñ�Ñ….Ñ�ÑƒÑ‚., Ð½Ð° Ñ€ÐµÐ¼Ð¾Ð½Ñ‚Ðµ");
-	public float priceK3;	//(0,32,"Ð¡Ñ‚Ð¾Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ Ñ‚Ð¾Ð¿Ð»Ð¸Ð²Ð°/Ð­ÐºÑ�Ð¿Ð».Ñ€Ð°Ñ�Ñ….Ð½Ð° Ñ…Ð¾Ð´Ñƒ");
-	public int p01;			//(0,33," p01, ÐºÐ¾Ñ€Ð¿ÑƒÑ�");
-
+	//Data from Request Object:
+    private String name;
+    private String project_name;
+    private String classification_society;
+    private List<String>  class_notations;
+    private String ice_class;
+    private float speed; 
+    private float load;
+    private float length;
+    private float width;
+    private float draft;
+    private float D;
+    private List<String> cargo_types;
+    private float cargeCapacity;
+    
+    //Calculated data:
+    private float delta;
+    
+    // Calculated data end
+    
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getClassification_society() {
+		return classification_society;
+	}
+	public void setClassification_society(String classification_society) {
+		this.classification_society = classification_society;
+	}
+	public List<String> getClass_notations() {
+		return class_notations;
+	}
+	public void setClass_notations(List<String> class_notations) {
+		this.class_notations = class_notations;
+	}
+	public String getProject_name() {
+		return project_name;
+	}
+	public void setProject_name(String project_name) {
+		this.project_name = project_name;
+	}
+	public String getIce_class() {
+		return ice_class;
+	}
+	public void setIce_class(String ice_class) {
+		this.ice_class = ice_class;
+	}
+	public float getSpeed() {
+		return speed;
+	}
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+	public float getLoad() {
+		return load;
+	}
+	public void setLoad(float load) {
+		this.load = load;
+	}
+	public float getLength() {
+		return length;
+	}
+	public void setLength(float length) {
+		this.length = length;
+	}
+	public float getWidth() {
+		return width;
+	}
+	public void setWidth(float width) {
+		this.width = width;
+	}
+	public float getDraft() {
+		return draft;
+	}
+	public void setDraft(float draft) {
+		this.draft = draft;
+	}
+	public float getD() {
+		return D;
+	}
+	public void setD(float d) {
+		D = d;
+	}
+	public List<String> getCargo_types() {
+		return cargo_types;
+	}
+	public void setCargo_types(List<String> cargo_types) {
+		this.cargo_types = cargo_types;
+	}
+	public float getDelta() {
+		return delta;
+	}
+	public void setDelta(float delta) {
+		this.delta = delta;
+	}
 
 }

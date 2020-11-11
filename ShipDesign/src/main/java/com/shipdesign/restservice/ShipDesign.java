@@ -1,5 +1,7 @@
 package com.shipdesign.restservice;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class ShipDesign {
 
 //	private static ShipDesign INSTANCE;
@@ -16,112 +18,136 @@ public class ShipDesign {
 
 
 	public ShipMainTechnicalEconomicCharacteristics getShipMainDetails(
-											String prototype_name, 
-											String ship_name,
-											String ship_load,
-											String ship_speed)
+			ShipDesignRequestObject shipDesignRequestObject)
 	{
 
-		ShipMainTechnicalEconomicCharacteristics prototypeCharacteristics = getPrototypepTechEconomicCharacteristics(prototype_name);
+		ShipMainTechnicalEconomicCharacteristics prototypeData = mapRequestDataToProto(shipDesignRequestObject);
 		
-		ShipMainTechnicalEconomicCharacteristics characteristics = new ShipMainTechnicalEconomicCharacteristics();
+		ShipMainTechnicalEconomicCharacteristics projData = mapRequestDataToProj(shipDesignRequestObject);
 	
-		if (prototype_name.equals(ship_name)){
-			characteristics = prototypeCharacteristics;
+		if (prototypeData.getName().equals(projData.getName())){
+			projData = prototypeData;
 		}
 		else {
-			if (prototypeCharacteristics.speed == characteristics.speed) {
-				characteristics = computeShipMainDetailsSpeedConst(prototypeCharacteristics, ship_name, ship_load, ship_speed);
+			if (prototypeData.getSpeed() == projData.getSpeed()) {
+				projData = computeShipMainDetailsSpeedConst(projData, prototypeData);
 			} else {
-				characteristics = computeShipMainDetailsSpeedVar(prototypeCharacteristics, ship_name, ship_load, ship_speed);
+				projData = computeShipMainDetailsSpeedVar(projData,prototypeData);
 			}
 		}
 		
-		return characteristics;
+		return projData;
 	}
 
-	private ShipMainTechnicalEconomicCharacteristics getPrototypepTechEconomicCharacteristics(String prototype_name) {
-	// TODO Auto-generated method stub
-	//take from DB -- TBD - Couchbase DB
-	return null;
-}
+	private ShipMainTechnicalEconomicCharacteristics mapRequestDataToProto(ShipDesignRequestObject designRequest) {
+		ShipMainTechnicalEconomicCharacteristics shipData = new ShipMainTechnicalEconomicCharacteristics();
+		shipData.setName(designRequest.getProto_name());
+		shipData.setProject_name(designRequest.getProto_projname());
+		shipData.setClassification_society(designRequest.getProto_classification_society());
+		shipData.setIce_class(designRequest.getProto_ice_class());
+		shipData.setSpeed(Float.parseFloat(designRequest.getProto_speed()));
+		shipData.setLoad(Float.parseFloat(designRequest.getProto_load()));
+		shipData.setLength(Float.parseFloat(designRequest.getProto_length()));
+		shipData.setWidth(Float.parseFloat(designRequest.getProto_width()));
+		shipData.setDraft(Float.parseFloat(designRequest.getProto_draft()));
+		shipData.setD(Float.parseFloat(designRequest.getProto_D()));
+		shipData.setCargo_types(designRequest.getProto_cargo_types());
+		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		shipData = objectMapper.readValue(designRequest, ShipMainTechnicalEconomicCharacteristics.class);
+		
+		return shipData;
+	}
+	
+	private ShipMainTechnicalEconomicCharacteristics mapRequestDataToProj(ShipDesignRequestObject designRequest) {
+		ShipMainTechnicalEconomicCharacteristics shipData = new ShipMainTechnicalEconomicCharacteristics();
+		shipData.setName(designRequest.getProj_name());
+		shipData.setSpeed(Float.parseFloat(designRequest.getProj_speed()));
+		shipData.setLoad(Float.parseFloat(designRequest.getProj_load()));
+		return shipData;
+	}
 
 	private ShipMainTechnicalEconomicCharacteristics computeShipMainDetailsSpeedConst(
-						ShipMainTechnicalEconomicCharacteristics prototype,
-						String ship_name, String ship_load, String ship_speed)
+									ShipMainTechnicalEconomicCharacteristics projData, 
+									ShipMainTechnicalEconomicCharacteristics prototypeData)
 	{
-		ShipMainTechnicalEconomicCharacteristics characteristics = new ShipMainTechnicalEconomicCharacteristics();
-		characteristics.name = ship_name;
-		characteristics.speed = Integer.parseInt(ship_speed);
-		characteristics.Pgr = Integer.parseInt(ship_load);
+		ShipMainTechnicalEconomicCharacteristics proj = new ShipMainTechnicalEconomicCharacteristics();
+		proj = projData;
+		ShipMainTechnicalEconomicCharacteristics proto = new ShipMainTechnicalEconomicCharacteristics();
 
-		characteristics.delta = prototype.delta;
-		characteristics.D = characteristics.Pgr * prototype.D /  prototype.Pgr;
-		characteristics.L = (float) (prototype.L * Math.pow((prototype.D / characteristics.D), 0.33f));
-		characteristics.B = characteristics.L * prototype.B / prototype.L;
-		characteristics.T = characteristics.B * prototype.T / prototype.B;
-		characteristics.H = characteristics.T * prototype.H / prototype.T;
-
-		return updateShipMainTechnicalEconomicCharacteristicsByCargoCapacity(prototype, characteristics);
+		float fullDisplacement = proto.getD() * proj.getLoad() / proto.getLoad();
+		float length = (float) (proto.getLength() * Math.pow((proto.getD() / fullDisplacement), 0.33f));
+		float width = length * proto.getWidth() / proto.getLength();
+		float draft = width * proto.getDraft() / proto.getWidth();
+		//float proj_H = proj_draft * prototype.H / prototype.T;
+		float proj_delta = fullDisplacement / (length * width * draft);
+		proj.setLength(length);
+		proj.setWidth(width);
+		proj.setDraft(draft);
+		proj.setD(fullDisplacement);
+		proj.setDelta(proj_delta);
+		
+		return proj;
+		//return updateShipMainTechnicalEconomicCharacteristicsByCargoCapacity(prototype, proj);
 	}
 	
 
 	private ShipMainTechnicalEconomicCharacteristics computeShipMainDetailsSpeedVar(
-					ShipMainTechnicalEconomicCharacteristics prototype,
-					String ship_name, String ship_load, String ship_speed)
+									ShipMainTechnicalEconomicCharacteristics projData, 
+									ShipMainTechnicalEconomicCharacteristics prototypeData)
 	{
 	
-		ShipMainTechnicalEconomicCharacteristics characteristics = new ShipMainTechnicalEconomicCharacteristics();
-		characteristics.name = ship_name;
-		characteristics.speed = Integer.parseInt(ship_speed);
-		characteristics.Pgr = Integer.parseInt(ship_load);
+		ShipMainTechnicalEconomicCharacteristics proj = new ShipMainTechnicalEconomicCharacteristics();
+		proj = projData;
+		ShipMainTechnicalEconomicCharacteristics proto = new ShipMainTechnicalEconomicCharacteristics();
+
 		
-		float p04Proto = ShipDesignPrinciples.getWeightOfShipPowerPlant(prototype.D);
-		float p04ProtoChanged = ShipDesignPrinciples.getWeightOfShipPowerPlantChangedPrototype(p04Proto, prototype.speed, Integer.parseInt(ship_speed));
-		float p15ProtoChanged = ShipDesignPrinciples.getLoadOfChangedPrototype(prototype.Pgr, p04ProtoChanged, p04Proto); 
-		float prototypeCarryingCapacityCoefficient = p15ProtoChanged/prototype.D; 
+		float p04Proto = ShipDesignPrinciples.getWeightOfShipPowerPlant(proto.getD());
+		float p04ProtoChanged = ShipDesignPrinciples.getWeightOfShipPowerPlantChangedPrototype(p04Proto, proto.getSpeed(), proj.getSpeed());
+		float p15ProtoChanged = ShipDesignPrinciples.getLoadOfChangedPrototype(proto.getLoad(), p04ProtoChanged, p04Proto); 
+		float prototypeCarryingCapacityCoefficient = p15ProtoChanged/proto.getD(); 
 	
-		float l_proj = ShipDesignPrinciples.getShipRelativeLength(characteristics.speed);
-		characteristics.D = ShipDesignPrinciples.getDisplacementByPrototypeCarryingCapacityCoefficient(characteristics.Pgr, prototypeCarryingCapacityCoefficient);
-		characteristics.L = ShipDesignPrinciples.getShipLenghByRelativeLength(l_proj, characteristics.D);
-		float froudeNumber = ShipDesignPrinciples.getFroudeNumber(characteristics.speed, characteristics.L);
-		characteristics.delta = ShipDesignPrinciples.getShipDelta(froudeNumber);
-		characteristics.B = ShipDesignPrinciples.getShipWidth(characteristics.D,characteristics.delta, characteristics.L, prototype.B, prototype.T);
-		characteristics.T = ShipDesignPrinciples.getShipDraft(characteristics.D, characteristics.delta, characteristics.L, characteristics.B);
-		characteristics.H = ShipDesignPrinciples.getShipBoardHeight(characteristics.T, prototype.T, prototype.H);
+		float l_proj = ShipDesignPrinciples.getShipRelativeLength(proj.getSpeed());
+		proj.setD(ShipDesignPrinciples.getDisplacementByPrototypeCarryingCapacityCoefficient(proj.getLoad(), prototypeCarryingCapacityCoefficient));
+		proj.setLength(ShipDesignPrinciples.getShipLenghByRelativeLength(l_proj, proj.getD()));
+		float froudeNumber = ShipDesignPrinciples.getFroudeNumber(proj.getSpeed(), proj.getLength());
+		proj.setDelta(ShipDesignPrinciples.getShipDelta(froudeNumber));
+		proj.setWidth(ShipDesignPrinciples.getShipWidth(proj.getD(),proj.getDelta(), proj.getLength(), proto.getWidth(), proto.getDraft()));
+		proj.setDraft(ShipDesignPrinciples.getShipDraft(proj.getD(), proj.getDelta(), proj.getLength(), proj.getWidth()));
+		//proj.H = ShipDesignPrinciples.getShipBoardHeight(proj.T, prototype.T, prototype.H);
 	
-		return updateShipMainTechnicalEconomicCharacteristicsByCargoCapacity(
-										prototype, characteristics);
+		//return updateShipMainTechnicalEconomicCharacteristicsByCargoCapacity(prototype, proj);
+		return proj;
 		
 	}
 
 
-	private ShipMainTechnicalEconomicCharacteristics updateShipMainTechnicalEconomicCharacteristicsByCargoCapacity(
-			ShipMainTechnicalEconomicCharacteristics prototype,
-			ShipMainTechnicalEconomicCharacteristics characteristics)
-	{
-
-		if (prototype.Wk > 0) {
-			characteristics.Wk = prototype.Wk * characteristics.Pgr / prototype.Pgr;
-		}
-		else {
-			characteristics.Wk = (int) (Constants.RELATIVE_CARGO_CAPACITY * characteristics.Pgr); //TBD  stub: ÑƒÐ´ÐµÐ»ÑŒÐ½Ð°Ñ� Ð³Ñ€ÑƒÐ·Ð¾Ð²Ð¼ÐµÑ�Ñ‚Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ = 1.5
-		}
-
-
-		float alfa = ShipDesignPrinciples.getAlfaByDelta(characteristics.delta);
-		float D = ShipDesignPrinciples.getDisplacement(alfa, characteristics);
-		if (D < characteristics.D) {
-			alfa += 0.06;
-			D = ShipDesignPrinciples.getDisplacement(alfa, characteristics);
-//			if (D < characteristics.D){ TBD TBD TBD TBD
-//				HT = 1 + ((m_delta/alfa)*((Wgr/V)-1));
-//				dHT = HT - m_HT;
-//			}
-		}
-
-		return characteristics;
-	}
+//	private ShipMainTechnicalEconomicCharacteristics updateShipMainTechnicalEconomicCharacteristicsByCargoCapacity(
+//			ShipMainTechnicalEconomicCharacteristics prototype,
+//			ShipMainTechnicalEconomicCharacteristics characteristics)
+//	{
+//
+//		if (prototype.Wk > 0) {
+//			characteristics.Wk = prototype.Wk * characteristics.Pgr / prototype.Pgr;
+//		}
+//		else {
+//			characteristics.Wk = (int) (Constants.RELATIVE_CARGO_CAPACITY * characteristics.Pgr); //TBD  stub: ÑƒÐ´ÐµÐ»ÑŒÐ½Ð°Ñ� Ð³Ñ€ÑƒÐ·Ð¾Ð²Ð¼ÐµÑ�Ñ‚Ð¸Ð¼Ð¾Ñ�Ñ‚ÑŒ = 1.5
+//		}
+//
+//
+//		float alfa = ShipDesignPrinciples.getAlfaByDelta(characteristics.getDelta());
+//		float D = ShipDesignPrinciples.getDisplacement(alfa, characteristics);
+//		if (D < characteristics.getD()) {
+//			alfa += 0.06;
+//			D = ShipDesignPrinciples.getDisplacement(alfa, characteristics);
+////			if (D < characteristics.D){ TBD TBD TBD TBD
+////				HT = 1 + ((m_delta/alfa)*((Wgr/V)-1));
+////				dHT = HT - m_HT;
+////			}
+//		}
+//
+//		return characteristics;
+//	}
 
 
 
