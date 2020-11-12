@@ -12,15 +12,17 @@ public class ShipDesignRequestObject {
     private String proto_name;
     private String proto_projname;
     private String proto_classification_society;
-    private List<String>  proto_class_notations;
+    private String proto_class_notations;
     private String proto_ice_class;
     private String proto_speed; 
     private String proto_load;
     private String proto_length;
     private String proto_width;
     private String proto_draft;
+    private String proto_boardheight;
     private String proto_D;
-    private List<String> proto_cargo_types;
+    private String proto_cargo_types;
+    private String proto_capacity;
     
 	public String getProj_name() {
 		return proj_name;
@@ -58,10 +60,10 @@ public class ShipDesignRequestObject {
 	public void setProto_classification_society(String proto_classification_society) {
 		this.proto_classification_society = proto_classification_society;
 	}
-	public List<String> getProto_class_notations() {
+	public String getProto_class_notations() {
 		return proto_class_notations;
 	}
-	public void setProto_class_notations(List<String> proto_class_notations) {
+	public void setProto_class_notations(String proto_class_notations) {
 		this.proto_class_notations = proto_class_notations;
 	}
 	public String getProto_ice_class() {
@@ -100,10 +102,10 @@ public class ShipDesignRequestObject {
 	public void setProto_draft(String proto_draft) {
 		this.proto_draft = proto_draft;
 	}
-	public List<String> getProto_cargo_types() {
+	public String getProto_cargo_types() {
 		return proto_cargo_types;
 	}
-	public void setProto_cargo_types(List<String> proto_cargo_types) {
+	public void setProto_cargo_types(String proto_cargo_types) {
 		this.proto_cargo_types = proto_cargo_types;
 	}
 	public String getProto_D() {
@@ -111,6 +113,18 @@ public class ShipDesignRequestObject {
 	}
 	public void setProto_D(String proto_D) {
 		this.proto_D = proto_D;
+	}
+	public String getProto_capacity() {
+		return proto_capacity;
+	}
+	public void setProto_capacity(String proto_capacity) {
+		this.proto_capacity = proto_capacity;
+	}
+	public String getProto_boardheight() {
+		return proto_boardheight;
+	}
+	public void setProto_boardheight(String proto_boardheight) {
+		this.proto_boardheight = proto_boardheight;
 	}
 	
 }

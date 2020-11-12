@@ -23,22 +23,21 @@ public class ShipDesignPrinciples {
 		return weight;
 	}
 
-	// carrying capacity
 	public static float getLoadOfChangedPrototype(float loadOfPrototype, float p4WeightOfChangedPrototype, float p4WeightOfPrototype ) {
 		float load  = loadOfPrototype - (p4WeightOfChangedPrototype - p4WeightOfPrototype);
 		logger.debug("loadOfPrototype: {}", loadOfPrototype);
 		return load;
 	}
 
-	public static float getCoefficientOfShipCarryingCapacity(float load, float displacement ) {
-		float coefficientOfShipCarryingCapacity = load/displacement;
-		logger.debug("coefficientOfShipCarryingCapacity: {}", coefficientOfShipCarryingCapacity);
-		return coefficientOfShipCarryingCapacity;
+	public static float getCoefficientOfShipCarryingLoad(float load, float displacement ) {
+		float coefficientOfShipCarryingLoad = load/displacement;
+		logger.debug("coefficientOfShipCarryingLoad: {}", coefficientOfShipCarryingLoad);
+		return coefficientOfShipCarryingLoad;
 	}
 
-	public static float getDisplacementByPrototypeCarryingCapacityCoefficient(float shipLoad,
-																	   float prototypeCarryingCapacityCoefficient) {
-		float displacement = shipLoad/prototypeCarryingCapacityCoefficient;
+	public static float getDisplacementByPrototypeCarryingLoadCoefficient(float shipLoad,
+																	   float prototypeCarryingLoadCoefficient) {
+		float displacement = shipLoad/prototypeCarryingLoadCoefficient;
 		logger.debug("displacement: {}", displacement);
 		return displacement;
 	}
@@ -106,10 +105,14 @@ public class ShipDesignPrinciples {
 		return alfa;
 	}
 
-//	public static float getDisplacement(float alfa,
-//								ShipMainTechnicalEconomicCharacteristics characteristics) {
-//		float displacement = Constants.WATER_DENSITY * characteristics.Wk / (1 + ((alfa / characteristics.getDelta()) * ((characteristics.H / characteristics.T) - 1)));	// (5.14) Ð�ÑˆÐ¸Ðº. ÐŸÑ€Ð¾ÐµÐºÑ‚Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð¡ÑƒÐ´Ð¾Ð²
-//		logger.debug("displacement: {}", displacement);
-//		return displacement;
-//	}
+	public static float getDisplacementByCapacity(float alfa, float delta, float width, float boardheight, float capacity) {
+		float displacement = Constants.WATER_DENSITY * capacity / (1 + ((alfa/delta) * ((boardheight/width) - 1)));
+		logger.debug("displacement: {}", displacement);
+		return displacement;
+	}
+	
+	public static float getCapacityByPrototype(float protoLoad, float protoCapacity, float projectLoad) {
+		float capacity = protoCapacity * projectLoad / protoLoad;
+		return capacity;
+	}
 }

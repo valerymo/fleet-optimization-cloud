@@ -39,16 +39,17 @@ public class ShipMainTechnicalEconomicCharacteristics {
     private String name;
     private String project_name;
     private String classification_society;
-    private List<String>  class_notations;
+    private String  class_notations;
     private String ice_class;
     private float speed; 
     private float load;
     private float length;
     private float width;
     private float draft;
+    private float boardheight;
     private float D;
-    private List<String> cargo_types;
-    private float cargeCapacity;
+    private String cargo_types;
+    private float capacity;
     
     //Calculated data:
     private float delta;
@@ -67,10 +68,10 @@ public class ShipMainTechnicalEconomicCharacteristics {
 	public void setClassification_society(String classification_society) {
 		this.classification_society = classification_society;
 	}
-	public List<String> getClass_notations() {
+	public String getClass_notations() {
 		return class_notations;
 	}
-	public void setClass_notations(List<String> class_notations) {
+	public void setClass_notations(String class_notations) {
 		this.class_notations = class_notations;
 	}
 	public String getProject_name() {
@@ -121,10 +122,10 @@ public class ShipMainTechnicalEconomicCharacteristics {
 	public void setD(float d) {
 		D = d;
 	}
-	public List<String> getCargo_types() {
+	public String getCargo_types() {
 		return cargo_types;
 	}
-	public void setCargo_types(List<String> cargo_types) {
+	public void setCargo_types(String cargo_types) {
 		this.cargo_types = cargo_types;
 	}
 	public float getDelta() {
@@ -132,6 +133,18 @@ public class ShipMainTechnicalEconomicCharacteristics {
 	}
 	public void setDelta(float delta) {
 		this.delta = delta;
+	}
+	public float getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(float capacity) {
+		this.capacity = capacity;
+	}
+	public float getBoardheight() {
+		return boardheight;
+	}
+	public void setBoardheight(float boardheight) {
+		this.boardheight = boardheight;
 	}
 
 }
