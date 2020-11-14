@@ -1,15 +1,11 @@
 package com.shipdesign.restservice;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ShipDesignPrinciples {
 
-	static Logger logger;
-	static {
-		logger = LogManager.getLogger(ShipDesignPrinciples.class);
-	}
+	private static Logger  logger = LoggerFactory.getLogger(ShipDesignPrinciples.class.getName());
 
 	public static float getWeightOfShipPowerPlant(float displacement) {
 		float weightP04 = Constants.P04_PART_OF_DISPLAICEMENT * displacement; //  TBD
