@@ -1,40 +1,7 @@
 package com.shipdesign.restservice;
 
-import java.util.List;
-
 public class ShipMainTechnicalEconomicCharacteristics {
 	
-//	public float a1;
-//	public float delta; +
-//	public float ro;
-//	public float mk;
-//
-//	private String name; +
-//	public  String projectNumber; 
-//	public  String registerClass; +
-//	private float L; +
-//	public float Lpp;
-//	private float B; +
-//	public float H;
-//	private float T; +
-//	private float D; +
-//	public int DW;
-//	private int load; +
-//	private float speed; +
-//	public float speed_bal;
-//	public int dist;
-//	public int Wk;
-//	public float mu;
-//	public int luk_num;
-//	public String load_stub1;
-//	public int stab1;
-//	public String load_stub2;
-//	public int stab2;
-//	public int priceBuild;
-//	public float priceK1;
-//	public float priceK2;
-//	public int exp1;
-
 	//Data from Request Object:
     private String name;
     private String project_name;

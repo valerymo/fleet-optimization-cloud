@@ -15,7 +15,8 @@ public class ShipDesignPrinciples {
 
 	public static float getWeightOfShipPowerPlantChangedPrototype(float p04Prototype, float speedOfPrototype, float speedOfProject ) {
 		float weight = (float) (p04Prototype * Math.pow(speedOfProject, 3.0f) / Math.pow(speedOfPrototype, 3.0f));
-		logger.debug("weight: {}", weight);
+		logger.debug("weightP04 of Proto: {}", p04Prototype);
+		logger.debug("weightP04 of Changed Proto: {}", weight);
 		return weight;
 	}
 
@@ -40,7 +41,8 @@ public class ShipDesignPrinciples {
 
 	//Ship Relative Length
 	public static float getShipRelativeLength(float speed) {
-		float relativeLength = (float)(1.36 * Math.sqrt(speed));
+		float correction = (float)0.5;
+		float relativeLength = (float)(1.36 * Math.sqrt(speed)) + correction;
 		logger.debug("relativeLength: {}", relativeLength);
 		return relativeLength;
 	}
@@ -60,7 +62,7 @@ public class ShipDesignPrinciples {
 
 	// coefficient of the overall completeness of the vessel
 	public static float getShipDelta(float Froude) {
-		float delta = (float) (0.395 / Math.pow(Froude, 0.33f));
+		float delta = (float) (0.5 / Math.pow(Froude, 0.33f));
 		logger.debug("delta: {}", delta);
 		return delta;
 	}
@@ -83,7 +85,7 @@ public class ShipDesignPrinciples {
 							   float prototypeWidth) {
 		float projectWidth = projectDisplacement /(Constants.WATER_DENSITY * Constants.COEFF_PROTRUDING_PARTS
 					* projectDelta * projectLength  * prototypeWidth);
-		logger.debug("projectWidth: {}", projectWidth);
+		logger.debug("projectDraft: {}", projectWidth);
 		return projectWidth;
 	}
 

@@ -1,0 +1,86 @@
+swagger: "2.0"
+info:
+  description: "ShipDesign service. Input - ship name"
+  version: "1.0.0"
+  title: "ShipDesign service"
+  contact:
+    email: "valery.mogilevsky@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost"
+basePath: "/v2/ship-design"
+tags:
+- name: "start"
+  description: "ship design start"
+schemes:
+- "https"
+- "http"
+paths:
+  /start:
+    post:
+      tags:
+      - "start"
+      summary: "Start design calculation"
+      description: ""
+      operationId: "startDesign"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ship name"
+        required: true
+        schema:
+          $ref: "#/definitions/ship_design"
+      responses:
+        "404":
+          description: "scenario not found"
+        "405":
+          description: "Invalid input"
+  /getStatus:
+    get:
+      tags:
+      - "status"
+      summary: "get ShipDesign process status"
+      description: "Multiple status values can be provided with comma separated strings"
+      operationId: "getShipDesignStatus"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "status"
+        in: "query"
+        description: "Status"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "idle"
+          - "processing"
+          - "completed"
+          default: "idle"
+      responses:
+        "200":
+          description: "OK - successful operation"
+        "400":
+          description: "Invalid status value"
+definitions:
+   ship_design:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "scenario_1.1"
+    xml:
+      name: "ship_design"

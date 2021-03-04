@@ -1,7 +1,5 @@
 package com.shipdesign.restservice;
 
-import java.util.List;
-
 public class ShipDesignRequestObject {
 
 	
